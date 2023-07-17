@@ -1,0 +1,18 @@
+import socket
+
+def main():
+    udp_client_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+
+    num = int(input("Enter a number: "))
+
+    udp_client_socket.sendto(str(num).encode(), ('127.0.0.1', 8080))
+
+    result, _ = udp_client_socket.recvfrom(1024)
+    print("Result:", result.decode())
+
+if __name__ == '__main__':
+    main()
+
+
+
+

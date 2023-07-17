@@ -1,0 +1,53 @@
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/types.h>
+
+int main() {
+    pid_t childPid;
+
+    // Fork the first child
+    childPid = fork();
+
+    if (childPid < 0) {
+        // Forking failed
+        fprintf(stderr, "Fork failed.\n");
+        return 1;
+    } else if (childPid == 0) {
+        // Child process
+        printf("Interrupt message from first child.\n");
+        return 0;
+    }
+
+    // Parent process continues here
+    // Fork the second child
+    childPid = fork();
+
+    if (childPid < 0) {
+        // Forking failed
+        fprintf(stderr, "Fork failed.\n");
+        return 1;
+    } else if (childPid == 0) {
+        // Second child process
+        printf("Interrupt message from second child.\n");
+        return 0;
+    }
+
+    // Parent process continues here
+    // Fork the third child
+    childPid = fork();
+
+    if (childPid < 0) {
+        // Forking failed
+        fprintf(stderr, "Fork failed.\n");
+        return 1;
+    } else if (childPid == 0) {
+        // Third child process
+        printf("Interrupt message from third child.\n");
+        return 0;
+    }
+
+    // Parent process continues here
+    printf("Message from the parent process.\n");
+
+    return 0;
+}
